@@ -1,0 +1,63 @@
+---
+title: "HW2RMD"
+author: "Noah Williams"
+date: "2024-12-04"
+output: html_document
+---
+
+```{r}
+require("devtools")
+require("roxygen2")
+require("usethis")
+require("testthat")
+require("readr")
+require("datap")
+require("tidyverse")
+require("readxl")
+require("assertthat")
+require("Rd2md")
+```
+
+```{r}
+
+# Load the package
+load_all()
+
+# Load data
+observed_data <- read_csv("contraceptive_use.csv") %>%
+  filter(is_in_union == "Y") %>%
+  mutate(
+    year = (start_date + end_date) / 2,
+    cp = contraceptive_use_modern * 100
+  ) %>%
+  select(division_numeric_code, year, cp)
+
+# Example dataset `est` with model estimates
+est <- read_csv("est.csv")
+
+# Exercise 1: Plot with 95% CI
+plot1 <- plot_cp(est, observed_data, iso_code = 4, CI = 95)
+plot1
+
+# Exercise 2: Plot without CI
+plot2 <- plot_cp(est, observed_data, iso_code = 4, CI = FALSE)
+plot2
+
+# Exercise 3: Plot with 80% CI
+plot3 <- plot_cp(est, observed_data, iso_code = 404, CI = 80)
+plot3
+```
+
+```{r}
+
+document()
+Rd2markdown(
+  rdfile = "C:/Users/Toyb/Downloads/HW2/myutils/man/plot_cp.Rd",
+  outfile = "C:/Users/Toyb/Downloads/HW2/myutils/plot_cp.md"
+)
+```
+```{r, echo=FALSE, results='asis'}
+cat(readLines("plot_cp.md"), sep = "\n")
+```
+Question 3
+https://github.com/Nwillia/HW2
