@@ -1,12 +1,12 @@
 
 plot_cp <- #' Plot
   #'
-  #' This function creates a visualization of cp in a dataset.
+  #' This function returns a ggplot with or without confidence interval.
   #'
-  #'@param data A data frame or matrix containing the data to analyze.
-#' @param change_points A numeric vector indicating the positions of CP.
-#' @param title A character string for the plot title. Defaults to "CP Plot".
-#' @param color A character string specifying the color of change point lines. Defaults to "red".
+  #'@param data A olumns: iso, year, cp
+#' @param est ibble which contains mCPR estimates. Columns: “Country or area”, iso, Year, Median, U95,L95
+#' @param iso_code the countrys iso code number
+#' @param COnfidence Interval can be NA or number
 #'
 #' @return A ggplot object displaying the data.
 #' @export
@@ -33,4 +33,59 @@ plot_cp <- #' Plot
   }
 
   return(p)
-}
+  # Check if est and observed_data contain required variables
+  required_variables <- c("iso", "Year", "Median", "L95", "U95", "L80", "U80")
+  if (!all(required_variables %in% names(est))) {
+    stop("Input data file est must contain variables iso, Year, Median, L95, U95, L80, and U80.")
+  }
+
+  required_variables <- c("iso", "year", "cp")
+  if (!all(required_variables %in% names(observed_data))) {
+    stop("Input data file observed_data must contain variables iso, year, and cp.")
+  }
+
+  # Check if iso_code is found in est and observed_data
+  if (!any(est$iso == iso_code)) {
+    stop("iso_code not found in est.")
+  }
+
+  if (!any(observed_data$iso == iso_code)) {
+    stop("iso_code not found in observed_data.")
+  }
+
+  # Check if cp is numeric
+  if (!is.numeric(observed_data$cp)) {
+    stop("Input cp in data file observed_data must be numeric.")
+  }
+
+  # Check if CI is valid
+  if (!is.null(CI) && !CI %in% c(80, 95)) {
+    stop("CI must be 80, 95, or NA.")
+  }
+
+  plot_cp <- function(est, observed_data, iso_code, CI = NULL) {
+    # Check if est and observed_data contain required variables
+    required_variables <- c("iso", "Year", "Median", "L95", "U95", "L80", "U80")
+    if (!all(required_variables %in% names(est))) {
+      stop("Input data file est must contain variables iso, Year, Median, L95, U95, L80, and U80.")
+    }
+
+    required_variables <- c("iso", "year", "cp")
+    if (!all(required_variables %in% names(observed_data))) {
+      stop("Input data file observed_data must contain variables iso, year, and cp.")
+    }
+
+    # Check if iso_code is found in est and observed_data
+    if (!any(est$iso == iso_code)) {
+      stop("iso_code not found in est.")
+    }
+
+
+  }
+  }
+
+
+
+
+
+

@@ -1,8 +1,8 @@
-# This function creates a visualization of cp in a dataset.
+# This function returns a ggplot with or without confidence interval.
 
 ## Description
 
-This function creates a visualization of cp in a dataset.
+This function returns a ggplot with or without confidence interval.
 
 ## Usage
 
@@ -12,10 +12,10 @@ plot_cp(est, observed_data, iso_code, CI = NULL)
 
 ## Arguments
 
-* `data`: A data frame or matrix containing the data to analyze.
-* `change_points`: A numeric vector indicating the positions of CP.
-* `title`: A character string for the plot title. Defaults to "CP Plot".
-* `color`: A character string specifying the color of change point lines. Defaults to "red".
+* `est`: ibble which contains mCPR estimates. Columns: “Country or area”, iso, Year, Median, U95,L95
+* `iso_code`: the countrys iso code number
+* `data`: A olumns: iso, year, cp
+* `COnfidence`: Interval can be NA or number
 
 ## Value
 
