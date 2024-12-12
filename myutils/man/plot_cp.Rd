@@ -2,22 +2,22 @@
 % Please edit documentation in R/plot_cp.R
 \name{plot_cp}
 \alias{plot_cp}
-\title{This function creates a visualization of cp in a dataset.}
+\title{This function returns a ggplot with or without confidence interval.}
 \usage{
 plot_cp(est, observed_data, iso_code, CI = NULL)
 }
 \arguments{
-\item{data}{A data frame or matrix containing the data to analyze.}
+\item{est}{ibble which contains mCPR estimates. Columns: “Country or area”, iso, Year, Median, U95,L95}
 
-\item{change_points}{A numeric vector indicating the positions of CP.}
+\item{iso_code}{the countrys iso code number}
 
-\item{title}{A character string for the plot title. Defaults to "CP Plot".}
+\item{data}{A olumns: iso, year, cp}
 
-\item{color}{A character string specifying the color of change point lines. Defaults to "red".}
+\item{COnfidence}{Interval can be NA or number}
 }
 \value{
 A ggplot object displaying the data.
 }
 \description{
-This function creates a visualization of cp in a dataset.
+This function returns a ggplot with or without confidence interval.
 }

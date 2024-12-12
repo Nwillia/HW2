@@ -1,10 +1,12 @@
 ---
-title: "HW2RMD"
+title: "HW3RMD"
 author: "Noah Williams"
 date: "2024-12-04"
 output: html_document
 ---
-
+Cobbled together through the power of prayer, dumb luck these and like 3 chatgpt clones to spellcheck the error mesages
+https://stackoverflow.com/questions/57491589/ignore-all-errors-occurring-when-knitting-r-markdown-rmd-file
+https://devtools.r-lib.org/
 ```{r}
 require("devtools")
 require("roxygen2")
@@ -35,17 +37,11 @@ observed_data <- read_csv("contraceptive_use.csv") %>%
 # Example dataset `est` with model estimates
 est <- read_csv("est.csv")
 
-# Exercise 1: Plot with 95% CI
-plot1 <- plot_cp(est, observed_data, iso_code = 4, CI = 95)
-plot1
+get_width_ci(est, iso_code = 4, coverage = 95)
+ 
 
-# Exercise 2: Plot without CI
-plot2 <- plot_cp(est, observed_data, iso_code = 4, CI = FALSE)
-plot2
 
-# Exercise 3: Plot with 80% CI
-plot3 <- plot_cp(est, observed_data, iso_code = 404, CI = 80)
-plot3
+.get_width_ci(est, iso_code = 4, coverage = 80)
 ```
 
 ```{r}
@@ -59,5 +55,27 @@ Rd2markdown(
 ```{r, echo=FALSE, results='asis'}
 cat(readLines("plot_cp.md"), sep = "\n")
 ```
+
+
+Question 2 errors
+
+
+```{r, error=TRUE}
+
+ 
+# Input dat does NOT contain variable iso, year and/or cp
+plot_cp(est, observed_data %>% select(-iso), iso_code = 4)
+plot_cp(est, observed_data %>% select(-year), iso_code = 4)
+plot_cp(est, observed_data %>% select(-cp), iso_code = 4)
+
+# iso_code is not found in “dat” or “est”
+plot_cp(est %>% select(-iso), observed_data, iso_code = 4)
+plot_cp(est, observed_data %>% select(-iso), iso_code = 4)
+
+
+
+```
+
 Question 3
 https://github.com/Nwillia/HW2
+It links to HW3
